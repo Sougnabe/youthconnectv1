@@ -20,14 +20,14 @@ function HomePage() {
       querySnapshot.forEach(doc => loaded.push(doc.data()));
       setPosts(loaded);
     } catch (error) {
-      console.error("Erreur chargement posts:", error);
+      console.error("Error loading posts:", error);
     }
     setLoading(false);
   };
 
   const submitPost = async () => {
     if (!company.trim() || !jobTitle.trim() || !jobDescription.trim()) {
-      alert("Merci de remplir tous les champs avant de publier.");
+      alert("Please fill in all fields before posting.");
       return;
     }
     setPosting(true);
@@ -42,9 +42,9 @@ function HomePage() {
       setJobTitle('');
       setJobDescription('');
       await loadPosts();
-      alert("Annonce publiée avec succès !");
+      alert("Job posted successfully!");
     } catch (error) {
-      alert("Erreur lors de la publication.");
+      alert("Error while posting.");
       console.error(error);
     }
     setPosting(false);
@@ -57,7 +57,7 @@ function HomePage() {
   const formatDate = (timestamp) => {
     if (!timestamp) return '';
     const date = timestamp.toDate ? timestamp.toDate() : timestamp;
-    return date.toLocaleDateString('fr-FR', { 
+    return date.toLocaleDateString('en-US', { 
       day: 'numeric', month: 'long', year: 'numeric', 
       hour: '2-digit', minute: '2-digit' 
     });
@@ -66,17 +66,17 @@ function HomePage() {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <h1 style={styles.title}>🎯 Bienvenue sur <span style={styles.highlight}>Youth Connect</span></h1>
+        <h1 style={styles.title}>🎯 Welcome to <span style={styles.highlight}>Youth Connect</span></h1>
         <p style={styles.subtitle}>
-          La plateforme qui connecte les étudiants aux entreprises pour trouver emploi ou stage.
+          A platform connecting students with companies to find jobs and internships.
         </p>
       </header>
 
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>📝 Publier une annonce d'emploi ou de stage</h2>
+        <h2 style={styles.sectionTitle}>📝 Post a Job or Internship Opportunity</h2>
         <input 
           type="text" 
-          placeholder="Nom de l'entreprise" 
+          placeholder="Company name" 
           value={company} 
           onChange={e => setCompany(e.target.value)} 
           style={styles.input}
@@ -84,14 +84,14 @@ function HomePage() {
         />
         <input 
           type="text" 
-          placeholder="Intitulé du poste" 
+          placeholder="Job title" 
           value={jobTitle} 
           onChange={e => setJobTitle(e.target.value)} 
           style={styles.input}
           disabled={posting}
         />
         <textarea
-          placeholder="Description du poste"
+          placeholder="Job description"
           value={jobDescription}
           onChange={e => setJobDescription(e.target.value)}
           rows={5}
@@ -103,23 +103,23 @@ function HomePage() {
           style={styles.button} 
           disabled={posting || !company.trim() || !jobTitle.trim() || !jobDescription.trim()}
         >
-          {posting ? "Publication..." : "Publier"}
+          {posting ? "Posting..." : "Post"}
         </button>
       </section>
 
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>📢 Dernières annonces</h2>
+        <h2 style={styles.sectionTitle}>📢 Latest Job Posts</h2>
         {loading ? (
-          <p>Chargement des annonces...</p>
+          <p>Loading posts...</p>
         ) : posts.length === 0 ? (
-          <p style={styles.noPosts}>Aucune annonce disponible pour le moment.</p>
+          <p style={styles.noPosts}>No job offers available yet.</p>
         ) : (
           posts.map((post, i) => (
             <article key={i} style={styles.postCard}>
               <h3 style={styles.jobTitle}>{post.jobTitle}</h3>
-              <p><strong>Entreprise :</strong> {post.company}</p>
+              <p><strong>Company:</strong> {post.company}</p>
               <p style={styles.jobDescription}>{post.jobDescription}</p>
-              <small style={styles.date}>Publié le {formatDate(post.createdAt)}</small>
+              <small style={styles.date}>Posted on {formatDate(post.createdAt)}</small>
             </article>
           ))
         )}
@@ -137,20 +137,6 @@ const styles = {
     color: '#333',
     backgroundColor: '#fafafa',
     minHeight: '100vh',
-  },
-  nav: {
-    marginBottom: '30px',
-    display: 'flex',
-    gap: '25px',
-    borderBottom: '2px solid #ddd',
-    paddingBottom: '12px',
-  },
-  link: {
-    textDecoration: 'none',
-    color: '#28a745',
-    fontWeight: '600',
-    fontSize: '1.1rem',
-    transition: 'color 0.3s ease',
   },
   header: {
     marginBottom: '40px',
@@ -212,10 +198,6 @@ const styles = {
     color: 'white',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
-    disabled: {
-      backgroundColor: '#94d3a2',
-      cursor: 'not-allowed',
-    }
   },
   postCard: {
     backgroundColor: '#e9f5ec',

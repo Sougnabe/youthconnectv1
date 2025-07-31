@@ -7,11 +7,11 @@ const Navbar = () => {
       <div style={styles.container}>
         <Link to="/" style={styles.logo}>YouthConnect</Link>
         <div style={styles.links}>
-          <Link to="/" style={styles.link}>Accueil</Link>
-          <Link to="/education" style={styles.link}>Éducation</Link>
+          <Link to="/" style={styles.link}>Home</Link>
+          <Link to="/education" style={styles.link}>Education</Link>
           <Link to="/forum" style={styles.link}>Forum</Link>
-          <Link to="/about" style={styles.link}>À propos</Link>
-          <Link to="/login" style={styles.link}>Connexion</Link>
+          <Link to="/about" style={styles.link}>About</Link>
+          <Link to="/login" style={styles.link}>Login</Link>
         </div>
       </div>
     </nav>
