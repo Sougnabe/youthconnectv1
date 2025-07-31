@@ -15,14 +15,14 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (err) {
-      setError("Email ou mot de passe incorrect.");
+      setError("Incorrect email or password.");
     }
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.title}>🔐 Connexion</h2>
+        <h2 style={styles.title}>🔐 Login</h2>
 
         {error && <p style={styles.error}>{error}</p>}
 
@@ -37,17 +37,17 @@ export default function Login() {
           />
           <input
             type="password"
-            placeholder="Mot de passe"
+            placeholder="Password"
             required
             value={password}
             onChange={e => setPassword(e.target.value)}
             style={styles.input}
           />
-          <button type="submit" style={styles.button}>Se connecter</button>
+          <button type="submit" style={styles.button}>Log In</button>
         </form>
 
         <p style={styles.text}>
-          Pas encore de compte ? <Link to="/auth">S'inscrire</Link>
+          Don’t have an account yet? <Link to="/auth">Sign up</Link>
         </p>
       </div>
     </div>

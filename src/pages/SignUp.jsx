@@ -17,37 +17,37 @@ export default function SignUp() {
     setSuccess('');
 
     if (password !== confirmPassword) {
-      setError("Les mots de passe ne correspondent pas.");
+      setError("Passwords do not match.");
       return;
     }
 
     if (password.length < 6) {
-      setError("Le mot de passe doit contenir au moins 6 caractères.");
+      setError("Password must be at least 6 characters long.");
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setSuccess("Compte créé avec succès !");
-      setTimeout(() => navigate('/'), 1500); // redirection après 1.5s
+      setSuccess("Account created successfully!");
+      setTimeout(() => navigate('/'), 1500); // redirect after 1.5s
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
-        setError("Cet email est déjà utilisé.");
+        setError("This email is already in use.");
       } else {
-        setError("Une erreur est survenue. Veuillez réessayer.");
+        setError("An error occurred. Please try again.");
       }
     }
   };
 
   return (
     <div style={styles.container}>
-      <h2>Créer un compte</h2>
+      <h2>Create an Account</h2>
       {error && <p style={styles.error}>{error}</p>}
       {success && <p style={styles.success}>{success}</p>}
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="email"
-          placeholder="Adresse email"
+          placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -55,7 +55,7 @@ export default function SignUp() {
         />
         <input
           type="password"
-          placeholder="Mot de passe"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -63,13 +63,13 @@ export default function SignUp() {
         />
         <input
           type="password"
-          placeholder="Confirmer le mot de passe"
+          placeholder="Confirm password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
           style={styles.input}
         />
-        <button type="submit" style={styles.button}>S'inscrire</button>
+        <button type="submit" style={styles.button}>Sign Up</button>
       </form>
     </div>
   );
