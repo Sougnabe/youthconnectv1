@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error,setError] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,19 +15,95 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (err) {
-      setError('Email ou mot de passe incorrect');
+      setError("Email ou mot de passe incorrect.");
     }
   };
 
   return (
-    <div style={{maxWidth:400, margin:'auto'}}>
-      <h2>Connexion</h2>
-      {error && <p style={{color:'red'}}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" required value={email} onChange={e=>setEmail(e.target.value)}/>
-        <input type="password" placeholder="Mot de passe" required value={password} onChange={e=>setPassword(e.target.value)}/>
-        <button type="submit">Se connecter</button>
-      </form>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2 style={styles.title}>🔐 Connexion</h2>
+
+        {error && <p style={styles.error}>{error}</p>}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            style={styles.input}
+          />
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            required
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            style={styles.input}
+          />
+          <button type="submit" style={styles.button}>Se connecter</button>
+        </form>
+
+        <p style={styles.text}>
+          Pas encore de compte ? <Link to="/auth">S'inscrire</Link>
+        </p>
+      </div>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f4f4f4',
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: '2rem',
+    borderRadius: '12px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+    maxWidth: '400px',
+    width: '100%',
+  },
+  title: {
+    marginBottom: '1.5rem',
+    textAlign: 'center',
+    fontSize: '1.8rem',
+  },
+  error: {
+    color: 'red',
+    marginBottom: '1rem',
+    textAlign: 'center',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+  },
+  input: {
+    padding: '0.8rem',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: '1rem',
+  },
+  button: {
+    padding: '0.8rem',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    transition: 'background-color 0.3s',
+  },
+  text: {
+    marginTop: '1rem',
+    textAlign: 'center',
+    fontSize: '0.9rem',
+  },
+};

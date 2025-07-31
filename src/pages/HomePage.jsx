@@ -2,7 +2,6 @@
 import { db } from '../firebase';
 import { addDoc, collection, getDocs, query, orderBy, Timestamp } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -66,13 +65,6 @@ function HomePage() {
 
   return (
     <div style={styles.container}>
-      <nav style={styles.nav}>
-        <Link to="/" style={styles.link}>Accueil</Link>
-        <Link to="/education" style={styles.link}>Éducation</Link>
-        <Link to="/forum" style={styles.link}>Forum</Link>
-        <Link to="/about" style={styles.link}>À propos</Link>
-      </nav>
-
       <header style={styles.header}>
         <h1 style={styles.title}>🎯 Bienvenue sur <span style={styles.highlight}>Youth Connect</span></h1>
         <p style={styles.subtitle}>
